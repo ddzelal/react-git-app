@@ -1,45 +1,36 @@
-import './App.css';
-import Display from './components/Display';
-import Header from './components/Header';
-import Search from './components/Search'
-import React, {  useEffect , useState , useRef } from 'react';
-import axios from 'axios';
-
-
-
-
-
-
-
-
+import "./App.css";
+import Display from "./components/Display";
+import Header from "./components/Header";
+import Search from "./components/Search";
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 
 function App() {
-  const  inputRef = useRef();
+  const inputRef = useRef();
+  const [fetch, setFetch] = useState('dzemildupljak');
 
-  const [user, setUser] = useState({name: "notFound" ,
-                                  bio: "notFound",
-                                  image: "notFound"})
+  const [user, setUser] = useState({
+    name: "Korisnik nije pronadjen!",
+    bio: "error",
+    image: "error",
+  });
 
-  useEffect(() => {  
+  const url = "https://api.github.com/users/";
+
+  useEffect(() => {
     axios
-    .get('https://api.github.com/users/'+ 'dzemildupljak')
-    .then(({data}) => {
-      
-      setUser(data)
-      
-    })
-    .catch((m) => console.log);
-  
-  }, [inputRef])
+      .get( url + fetch)
+      .then(({ data }) => {
+        setUser(data);
+      })
+      .catch((m) => console.log);
+  }, [fetch]);
 
-  console.log(inputRef)
-
-  
   return (
     <div>
-   <Header />
-   <Display user={user} />
-   <Search inputRef={inputRef} />
+      <Header />
+      <Display user={user} />
+      <Search setFetch={setFetch} inputRef={inputRef} />
     </div>
   );
 }

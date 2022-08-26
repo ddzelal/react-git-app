@@ -21,7 +21,7 @@ export default function Display({ user }) {
     <Box className="display-container" sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={5}>
-          <Item className="nesto">
+          <Item className="display-image">
             <img src={user.avatar_url} />
           </Item>
         </Grid>
@@ -32,7 +32,7 @@ export default function Display({ user }) {
           <Item>User id:{user.id}</Item>
         </Grid>
         <Grid xs={5}>
-          <Item>{user.bio}</Item>
+          <Item>{user.bio === null ? "Ova osoba iza sebe nema delo .!?." : user.bio}</Item>
         </Grid>
        
       </Grid>
